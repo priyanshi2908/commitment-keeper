@@ -1,0 +1,19 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Environment
+.env
+
+# OS
+.DS_Store
+
+# Local results / generated artifacts (keep dataset + harness tracked)
+evaluation_results.json
+actuals.json

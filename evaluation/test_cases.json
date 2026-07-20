@@ -1,0 +1,383 @@
+{
+  "skill": "commitment-keeper",
+  "schema": "schemas/commitment.schema.json",
+  "description": "30-case evaluation dataset for the commitment-keeper extraction skill. conversation is a list of {speaker, text} objects. expected_decision/expected_missing_fields encode the skill's documented rules, including the context-sensitive acknowledgement rule.",
+  "generated_at": "2026-07-17T18:15:00+05:30",
+  "case_count": 30,
+  "cases": [
+    {
+      "id": "EC-01",
+      "authenticated_user": "Priyanshi",
+      "current_datetime": "2026-07-17T18:15:00+05:30",
+      "existing_commitment": null,
+      "conversation": [
+        {"speaker": "Priyanshi", "text": "I'll send the quarterly report to Priya by Friday."}
+      ],
+      "expected_decision": "stage",
+      "expected_missing_fields": [],
+      "notes": "Self-made promise with concrete action, actor, beneficiary and deadline."
+    },
+    {
+      "id": "EC-02",
+      "authenticated_user": "Priyanshi",
+      "current_datetime": "2026-07-17T18:15:00+05:30",
+      "existing_commitment": null,
+      "conversation": [
+        {"speaker": "Priyanshi", "text": "I will call the client tomorrow at 10am."}
+      ],
+      "expected_decision": "stage",
+      "expected_missing_fields": [],
+      "notes": "Explicit commitment with a named time."
+    },
+    {
+      "id": "EC-03",
+      "authenticated_user": "Priyanshi",
+      "current_datetime": "2026-07-17T18:15:00+05:30",
+      "existing_commitment": null,
+      "conversation": [
+        {"speaker": "Priyanshi", "text": "I'm going to submit the expense report by end of day."}
+      ],
+      "expected_decision": "stage",
+      "expected_missing_fields": [],
+      "notes": "Concrete task with same-day deadline."
+    },
+    {
+      "id": "EC-04",
+      "authenticated_user": "Priyanshi",
+      "current_datetime": "2026-07-17T18:15:00+05:30",
+      "existing_commitment": null,
+      "conversation": [
+        {"speaker": "Priyanshi", "text": "I'll fix the bug in the login module this week."}
+      ],
+      "expected_decision": "stage",
+      "expected_missing_fields": [],
+      "notes": "Accepted responsibility with a within-week deadline."
+    },
+    {
+      "id": "EC-05",
+      "authenticated_user": "Priyanshi",
+      "current_datetime": "2026-07-17T18:15:00+05:30",
+      "existing_commitment": null,
+      "conversation": [
+        {"speaker": "Priyanshi", "text": "I will prepare the slides for the board meeting on Monday."}
+      ],
+      "expected_decision": "stage",
+      "expected_missing_fields": [],
+      "notes": "Named deliverable tied to a calendar event."
+    },
+    {
+      "id": "EC-06",
+      "authenticated_user": "Priyanshi",
+      "current_datetime": "2026-07-17T18:15:00+05:30",
+      "existing_commitment": null,
+      "conversation": [
+        {"speaker": "Priyanshi", "text": "I'll review the pull request tonight."}
+      ],
+      "expected_decision": "stage",
+      "expected_missing_fields": [],
+      "notes": "Concrete review task with same-day deadline."
+    },
+    {
+      "id": "EC-07",
+      "authenticated_user": "Priyanshi",
+      "current_datetime": "2026-07-17T18:15:00+05:30",
+      "existing_commitment": null,
+      "conversation": [
+        {"speaker": "Priyanshi", "text": "I'm responsible for onboarding the new hire by next week."}
+      ],
+      "expected_decision": "stage",
+      "expected_missing_fields": [],
+      "notes": "Explicit ownership with a deadline."
+    },
+
+    {
+      "id": "ACK-01",
+      "authenticated_user": "Priyanshi",
+      "current_datetime": "2026-07-17T18:15:00+05:30",
+      "existing_commitment": null,
+      "conversation": [
+        {"speaker": "Rahul", "text": "Can you review the report today?"},
+        {"speaker": "Priyanshi", "text": "Okay."}
+      ],
+      "expected_decision": "stage",
+      "expected_missing_fields": [],
+      "notes": "Clear, concrete request addressed to the user + bare 'Okay' -> acceptance."
+    },
+    {
+      "id": "ACK-02",
+      "authenticated_user": "Priyanshi",
+      "current_datetime": "2026-07-17T18:15:00+05:30",
+      "existing_commitment": null,
+      "conversation": [
+        {"speaker": "Rahul", "text": "Priyanshi, please send the invoice tomorrow."},
+        {"speaker": "Priyanshi", "text": "Sure."}
+      ],
+      "expected_decision": "stage",
+      "expected_missing_fields": [],
+      "notes": "Clear assignment + 'Sure' -> acceptance."
+    },
+    {
+      "id": "ACK-03",
+      "authenticated_user": "Priyanshi",
+      "current_datetime": "2026-07-17T18:15:00+05:30",
+      "existing_commitment": null,
+      "conversation": [
+        {"speaker": "Rahul", "text": "Someone should review this."},
+        {"speaker": "Priyanshi", "text": "Okay."}
+      ],
+      "expected_decision": "ignore",
+      "expected_missing_fields": ["actor", "action", "deadline"],
+      "notes": "Preceding message is not a clear request aimed at the user -> not acceptance."
+    },
+    {
+      "id": "ACK-04",
+      "authenticated_user": "Priyanshi",
+      "current_datetime": "2026-07-17T18:15:00+05:30",
+      "existing_commitment": null,
+      "conversation": [
+        {"speaker": "Rahul", "text": "We may need to revisit this later."},
+        {"speaker": "Priyanshi", "text": "Got it."}
+      ],
+      "expected_decision": "ignore",
+      "expected_missing_fields": ["actor", "action", "deadline"],
+      "notes": "Ambiguous plan, not an assignment to the user -> not acceptance."
+    },
+    {
+      "id": "ACK-05",
+      "authenticated_user": "Priyanshi",
+      "current_datetime": "2026-07-17T18:15:00+05:30",
+      "existing_commitment": null,
+      "conversation": [
+        {"speaker": "Rahul", "text": "Can you review this?"},
+        {"speaker": "Priyanshi", "text": "Okay, if I get time."}
+      ],
+      "expected_decision": "requires_acceptance",
+      "expected_missing_fields": ["deadline"],
+      "notes": "'Okay, if I get time' adds a condition/hesitation -> not acceptance."
+    },
+
+    {
+      "id": "UA-01",
+      "authenticated_user": "Priyanshi",
+      "current_datetime": "2026-07-17T18:15:00+05:30",
+      "existing_commitment": null,
+      "conversation": [
+        {"speaker": "Rahul", "text": "Priyanshi, please prepare the project report by Monday."}
+      ],
+      "expected_decision": "requires_acceptance",
+      "expected_missing_fields": [],
+      "notes": "Direct assignment; user has not accepted."
+    },
+    {
+      "id": "UA-02",
+      "authenticated_user": "Priyanshi",
+      "current_datetime": "2026-07-17T18:15:00+05:30",
+      "existing_commitment": null,
+      "conversation": [
+        {"speaker": "Rahul", "text": "Can you deploy the new version by Friday?"}
+      ],
+      "expected_decision": "requires_acceptance",
+      "expected_missing_fields": [],
+      "notes": "Request with deadline; no acceptance in transcript."
+    },
+    {
+      "id": "UA-03",
+      "authenticated_user": "Priyanshi",
+      "current_datetime": "2026-07-17T18:15:00+05:30",
+      "existing_commitment": null,
+      "conversation": [
+        {"speaker": "Manager", "text": "Could you handle the customer escalation?"}
+      ],
+      "expected_decision": "requires_acceptance",
+      "expected_missing_fields": ["deadline"],
+      "notes": "Request without an explicit deadline; unaccepted."
+    },
+    {
+      "id": "UA-04",
+      "authenticated_user": "Priyanshi",
+      "current_datetime": "2026-07-17T18:15:00+05:30",
+      "existing_commitment": null,
+      "conversation": [
+        {"speaker": "Rahul", "text": "Priyanshi, please update the documentation before the release."}
+      ],
+      "expected_decision": "requires_acceptance",
+      "expected_missing_fields": ["deadline"],
+      "notes": "Assignment with relative deadline tied to an event, not accepted."
+    },
+    {
+      "id": "UA-05",
+      "authenticated_user": "Priyanshi",
+      "current_datetime": "2026-07-17T18:15:00+05:30",
+      "existing_commitment": null,
+      "conversation": [
+        {"speaker": "Rahul", "text": "Can you join the on-call rotation next month?"}
+      ],
+      "expected_decision": "requires_acceptance",
+      "expected_missing_fields": [],
+      "notes": "Request for future obligation; user silent."
+    },
+
+    {
+      "id": "CS-01",
+      "authenticated_user": "Priyanshi",
+      "current_datetime": "2026-07-17T18:15:00+05:30",
+      "existing_commitment": null,
+      "conversation": [
+        {"speaker": "Rahul", "text": "Let's grab coffee sometime."},
+        {"speaker": "Priyanshi", "text": "Sounds good."}
+      ],
+      "expected_decision": "ignore",
+      "expected_missing_fields": ["actor", "action", "deadline"],
+      "notes": "Social plan, no operational obligation."
+    },
+    {
+      "id": "CS-02",
+      "authenticated_user": "Priyanshi",
+      "current_datetime": "2026-07-17T18:15:00+05:30",
+      "existing_commitment": null,
+      "conversation": [
+        {"speaker": "Rahul", "text": "We should go for lunch next week."},
+        {"speaker": "Priyanshi", "text": "Definitely."}
+      ],
+      "expected_decision": "ignore",
+      "expected_missing_fields": ["actor", "action", "deadline"],
+      "notes": "Social plan despite enthusiasm."
+    },
+    {
+      "id": "CS-03",
+      "authenticated_user": "Priyanshi",
+      "current_datetime": "2026-07-17T18:15:00+05:30",
+      "existing_commitment": null,
+      "conversation": [
+        {"speaker": "Rahul", "text": "Maybe we should look into a redesign."},
+        {"speaker": "Priyanshi", "text": "Sure."}
+      ],
+      "expected_decision": "ignore",
+      "expected_missing_fields": ["actor", "action", "deadline"],
+      "notes": "Vague suggestion, not a concrete commitment."
+    },
+    {
+      "id": "CS-04",
+      "authenticated_user": "Priyanshi",
+      "current_datetime": "2026-07-17T18:15:00+05:30",
+      "existing_commitment": null,
+      "conversation": [
+        {"speaker": "Priyanshi", "text": "I wish I could help with that."}
+      ],
+      "expected_decision": "ignore",
+      "expected_missing_fields": ["actor", "action", "deadline"],
+      "notes": "Casual wish, no accepted responsibility."
+    },
+
+    {
+      "id": "HY-01",
+      "authenticated_user": "Priyanshi",
+      "current_datetime": "2026-07-17T18:15:00+05:30",
+      "existing_commitment": null,
+      "conversation": [
+        {"speaker": "Priyanshi", "text": "If we had the budget, I'd hire another engineer."}
+      ],
+      "expected_decision": "ignore",
+      "expected_missing_fields": ["actor", "action", "deadline"],
+      "notes": "Conditional/hypothetical, not real."
+    },
+    {
+      "id": "HY-02",
+      "authenticated_user": "Priyanshi",
+      "current_datetime": "2026-07-17T18:15:00+05:30",
+      "existing_commitment": null,
+      "conversation": [
+        {"speaker": "Priyanshi", "text": "If the client approves it, I might prepare another version."}
+      ],
+      "expected_decision": "ignore",
+      "expected_missing_fields": ["actor", "action", "deadline"],
+      "notes": "Hypothetical with hedging ('might')."
+    },
+    {
+      "id": "HY-03",
+      "authenticated_user": "Priyanshi",
+      "current_datetime": "2026-07-17T18:15:00+05:30",
+      "existing_commitment": null,
+      "conversation": [
+        {"speaker": "Priyanshi", "text": "Were we to win the contract, I would lead the project."}
+      ],
+      "expected_decision": "ignore",
+      "expected_missing_fields": ["actor", "action", "deadline"],
+      "notes": "Counterfactual, no commitment."
+    },
+
+    {
+      "id": "ND-01",
+      "authenticated_user": "Priyanshi",
+      "current_datetime": "2026-07-17T18:15:00+05:30",
+      "existing_commitment": null,
+      "conversation": [
+        {"speaker": "Priyanshi", "text": "I'm responsible for writing the onboarding doc."}
+      ],
+      "expected_decision": "stage",
+      "expected_missing_fields": ["deadline"],
+      "notes": "Accepted responsibility, concrete task, no deadline."
+    },
+    {
+      "id": "ND-02",
+      "authenticated_user": "Priyanshi",
+      "current_datetime": "2026-07-17T18:15:00+05:30",
+      "existing_commitment": null,
+      "conversation": [
+        {"speaker": "Priyanshi", "text": "I will take care of the server maintenance."}
+      ],
+      "expected_decision": "stage",
+      "expected_missing_fields": ["deadline"],
+      "notes": "Concrete ownership, no time bound."
+    },
+    {
+      "id": "ND-03",
+      "authenticated_user": "Priyanshi",
+      "current_datetime": "2026-07-17T18:15:00+05:30",
+      "existing_commitment": null,
+      "conversation": [
+        {"speaker": "Priyanshi", "text": "I'll handle the refund for the customer."}
+      ],
+      "expected_decision": "stage",
+      "expected_missing_fields": ["deadline"],
+      "notes": "Clear task, beneficiary implied, no deadline."
+    },
+
+    {
+      "id": "PC-01",
+      "authenticated_user": "Priyanshi",
+      "current_datetime": "2026-07-17T18:15:00+05:30",
+      "existing_commitment": "Send the signed agreement to Rahul.",
+      "conversation": [
+        {"speaker": "Priyanshi", "text": "Done, I have sent the signed agreement."}
+      ],
+      "expected_decision": "possible_completion",
+      "expected_missing_fields": [],
+      "notes": "New message may evidence completion of an existing commitment."
+    },
+    {
+      "id": "PC-02",
+      "authenticated_user": "Priyanshi",
+      "current_datetime": "2026-07-17T18:15:00+05:30",
+      "existing_commitment": "Submit the tax filing to the accountant.",
+      "conversation": [
+        {"speaker": "Priyanshi", "text": "Just submitted it."}
+      ],
+      "expected_decision": "possible_completion",
+      "expected_missing_fields": [],
+      "notes": "Short confirmation that may complete an open task."
+    },
+    {
+      "id": "PC-03",
+      "authenticated_user": "Priyanshi",
+      "current_datetime": "2026-07-17T18:15:00+05:30",
+      "existing_commitment": "Renew the domain name.",
+      "conversation": [
+        {"speaker": "Priyanshi", "text": "Renewed it just now."}
+      ],
+      "expected_decision": "possible_completion",
+      "expected_missing_fields": [],
+      "notes": "Completion-language message against an existing commitment."
+    }
+  ]
+}

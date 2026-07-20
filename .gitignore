@@ -1,0 +1,6 @@
+.DS_Store
+backend/.pytest_cache/
+backend/.venv/
+data/*.db
+evaluation/actuals.json
+evaluation/evaluation_results.json

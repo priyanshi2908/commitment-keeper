@@ -1,0 +1,101 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hermes-agent/commitment-keeper/extraction.schema.json",
+  "title": "CommitmentExtraction",
+  "description": "Extraction-only output: a single commitment candidate detected from conversation text. This skill never persists the result as a final task.",
+  "type": "object",
+  "required": [
+    "decision",
+    "task_title",
+    "actor",
+    "beneficiary",
+    "due_at",
+    "due_text",
+    "confidence",
+    "source_evidence",
+    "signals",
+    "missing_fields"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "decision": {
+      "type": "string",
+      "enum": ["stage", "ignore", "requires_acceptance", "possible_completion"],
+      "description": "Classification of the utterance under the extraction rules."
+    },
+    "task_title": {
+      "type": "string",
+      "description": "Short actionable title of the commitment or event. May be empty for 'ignore'."
+    },
+    "actor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "name"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["user", "other", "team", "unknown"],
+          "description": "Who is obligated to perform the task."
+        },
+        "name": {
+          "type": ["string", "null"],
+          "description": "Display name of the actor when known, otherwise null."
+        }
+      }
+    },
+    "beneficiary": {
+      "type": ["string", "null"],
+      "description": "Who benefits from or is owed the task. Null if unspecified."
+    },
+    "due_at": {
+      "type": ["string", "null"],
+      "format": "date-time",
+      "description": "ISO-8601 datetime when inferable, otherwise null."
+    },
+    "due_text": {
+      "type": "string",
+      "description": "Raw deadline phrasing from the text (e.g. 'by Friday'). Empty if none."
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Model confidence in the extraction, 0.0 to 1.0."
+    },
+    "source_evidence": {
+      "type": "string",
+      "description": "Verbatim excerpt from the conversation supporting this extraction."
+    },
+    "signals": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["actionable_verb", "actor_identified", "timeline_present", "explicit_acceptance"],
+      "properties": {
+        "actionable_verb": {
+          "type": "boolean",
+          "description": "Text contains a concrete actionable verb."
+        },
+        "actor_identified": {
+          "type": "boolean",
+          "description": "An identifiable obligated actor is present."
+        },
+        "timeline_present": {
+          "type": "boolean",
+          "description": "An explicit or inferable deadline is present."
+        },
+        "explicit_acceptance": {
+          "type": "boolean",
+          "description": "The authenticated user accepted the responsibility."
+        }
+      }
+    },
+    "missing_fields": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["actor", "action", "deadline", "beneficiary"]
+      },
+      "description": "Fields that could not be determined from the text."
+    }
+  }
+}
